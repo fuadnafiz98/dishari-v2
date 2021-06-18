@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dishari_nav"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.dishari.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_optionsFragment"
+            app:destination="@id/optionsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/optionsFragment"
+        android:name="com.example.dishari.OptionsFragment"
+        android:label="fragment_options2"
+        tools:layout="@layout/fragment_options2" >
+        <action
+            android:id="@+id/action_optionsFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_optionsFragment_to_objectFragment"
+            app:destination="@id/objectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/objectFragment"
+        android:name="com.example.dishari.ObjectFragment"
+        android:label="fragment_object"
+        tools:layout="@layout/fragment_object" >
+        <action
+            android:id="@+id/action_objectFragment_to_optionsFragment"
+            app:destination="@id/optionsFragment" />
+    </fragment>
+</navigation>
