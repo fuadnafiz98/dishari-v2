@@ -16,4 +16,6 @@
     <color name="orange_200">#FFC542</color>
     <color name="orange_300">#FF974A</color>
     <color name="green_100">#3DD598</color>
+    <color name="blue_navbar">#4663D4</color>
+    <color name="blue_navbar_2">#1B3294</color>
 </resources>
