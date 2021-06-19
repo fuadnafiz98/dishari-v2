@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme.ObjectDetection">
         <activity android:name=".Features"></activity>
         <activity android:name=".DetectorActivity" />
+        <activity android:name=".activity_notifyObstacle" />
         <activity
             android:name=".MainActivity"
             android:label="@string/tfe_od_app_name"

@@ -71,7 +71,7 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
                 startActivity(new Intent(getApplicationContext(), DetectorActivity.class));
                 break;
             case R.id.obstacle_card:
-//                startActivity(new Intent(getApplicationContext(),activity_notifyObstacle.class));
+                startActivity(new Intent(getApplicationContext(), activity_notifyObstacle.class));
                 break;
             case R.id.distance_card:
 //                startActivity(new Intent(getApplicationContext(),activity_distance_measurement.class));
