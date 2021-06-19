@@ -1,37 +1,25 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:1:1-3:12
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:1:1-3:12
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:1:1-3:12
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:1:1-3:12
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:1:1-3:12
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:1:1-3:12
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:1:1-3:12
+ADDED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml:1:1-3:12
+INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml:1:1-3:12
+INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml:1:1-3:12
 	package
-		ADDED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:2:5-60
-		INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-		INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-	android:versionName
-		INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-		ADDED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:1:1-3:12
-		INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-	android:versionCode
-		INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-		ADDED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:1:1-3:12
-		INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
+		ADDED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml:2:5-60
+		INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml:1:11-69
+		ADDED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml:1:11-69
 uses-sdk
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
+INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
+INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
+INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
+INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-		ADDED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-		INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
+		ADDED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-		ADDED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
-		INJECTED from /home/nafiz/AndroidStudioProjects/dishari-v2/lib_task_api/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
+		ADDED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\nisha\AndroidStudioProjects\dishari-v2\lib_task_api\src\main\AndroidManifest.xml
