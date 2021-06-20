@@ -35,6 +35,8 @@
             <!-- COLUMN 1  -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/help_card"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
@@ -84,6 +86,8 @@
             <!-- COLUMN 2  -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/objectDetection_card"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
@@ -131,6 +135,8 @@
             <!-- COLUMN 1  -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/distance_card"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
@@ -178,6 +184,8 @@
             <!-- COLUMN 2  -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/obstacle_card"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
