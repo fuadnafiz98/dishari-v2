@@ -3,14 +3,18 @@ package org.tensorflow.lite.examples.detection;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
-public class Contact extends AppCompatActivity {
+public class Contact<fis> extends AppCompatActivity {
     private static final String File_Name = "contact.txt";
     EditText mobile1;
     EditText mobile2;
@@ -46,4 +50,38 @@ public class Contact extends AppCompatActivity {
             }
         }
     }
+    FileInputStream fis = null;
+
+
+    {
+        try {
+            fis = openFileInput(File_Name);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String ret_text;
+            while ((ret_text = br.readLine()) != null) {
+                sb.append(ret_text).append(" ");
+
+            }
+            Log.v("check",ret_text);
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }finally{
+            if(fis != null){
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+    }
+    }
+
+
 }
