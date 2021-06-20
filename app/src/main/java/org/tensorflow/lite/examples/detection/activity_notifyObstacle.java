@@ -77,6 +77,17 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
     private TextView TextForSpeech;
     private Button button;
 
+    String[] objects = {
+            "chair",
+            "table",
+            "person",
+            "suitcase",
+            "car",
+            "couch",
+            "bench",
+            "table"
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +96,22 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 performObstacle(v);
+            }
+        });
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status == TextToSpeech.SUCCESS) {
+                    int result = tts.setLanguage(Locale.US);
+                    if(result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS_DISTANCE", "Lang not supported");
+                    } else {
+
+                    }
+                } else {
+                    Log.e("TTS_DISTANCE", "Lang not supported");
+                }
             }
         });
     }
@@ -209,23 +236,29 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
                         String maxResultTitle = "";
                         for (final Detector.Recognition result : results) {
                             final RectF location = result.getLocation();
-                            if (location != null && result.getConfidence() >= minimumConfidence) {Log.v("IMAGE", result.getTitle());
+                            if (location != null && result.getConfidence() >= minimumConfidence) {
+                                Log.v("IMAGE", result.getTitle());
                                 if(result.getConfidence() > maxResultConfidence) {
                                     maxResultConfidence = result.getConfidence();
                                     maxResultTitle = result.getTitle();
                                 }
-                                canvas.drawRect(location, paint);
+//                                canvas.drawRect(location, paint);
 
                                 cropToFrameTransform.mapRect(location);
 
                                 result.setLocation(location);
-                                mappedRecognitions.add(result);
+//                                mappedRecognitions.add(result);
                             }
                         }
                         String finalMaxResultTitle = maxResultTitle;
                         runOnUiThread(
                                 () -> {
                                     detectionText.setText(finalMaxResultTitle);
+                                    for(int i = 0; i < objects.length; i++) {
+                                        if(finalMaxResultTitle.equals(objects[i])) {
+                                            speak(objects[i] + " in your way!");
+                                        }
+                                    }
                                 }
                         );
 
@@ -318,5 +351,22 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
             installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
             startActivity(installIntent);
         }
+    }
+    private void speak(String distance) {
+        tts.speak(distance, TextToSpeech.QUEUE_FLUSH, null);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @Override
+    public void onDestroy() {
+        if(tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 }
