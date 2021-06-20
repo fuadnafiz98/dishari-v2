@@ -8,7 +8,7 @@ public interface Methods {
 
     // /distance
     @GET("distance")
-    Call<org.tensorflow.lite.examples.detection.Data> getAllData();
+    Call<Model> getAllData();
 
     @GET("location")
     Call<LocationModel>getLocation();

@@ -39,7 +39,7 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.help:
-//                        startActivity(new Intent(getApplicationContext(), Help.class));
+                        startActivity(new Intent(getApplicationContext(), Help.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.features:
@@ -74,7 +74,7 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
                 startActivity(new Intent(getApplicationContext(), activity_notifyObstacle.class));
                 break;
             case R.id.distance_card:
-//                startActivity(new Intent(getApplicationContext(),activity_distance_measurement.class));
+                startActivity(new Intent(getApplicationContext(),activity_distance_measurement.class));
                 break;
         }
     }
