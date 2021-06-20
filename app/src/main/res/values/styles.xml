@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme.ObjectDetection" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/tfe_color_primary</item>
-        <item name="colorPrimaryDark">@color/tfe_color_primary_dark</item>
+        <item name="colorPrimary">@color/blue_navbar_2</item>
+        <item name="colorPrimaryDark">@color/blue_navbar_2</item>
         <item name="colorAccent">@color/tfe_color_accent</item>
     </style>
 

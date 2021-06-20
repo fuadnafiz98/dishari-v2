@@ -5,14 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Features">
+    tools:context=".Features"
+    >
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#000000"
+        android:background="#fff"
         android:weightSum="10"
         >
         <RelativeLayout
@@ -34,6 +35,8 @@
             <!-- COLUMN 1  -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/help_card"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
@@ -45,34 +48,46 @@
                 app:cardCornerRadius="8dp"
                 app:cardBackgroundColor="@color/purple_500"
                 >
+
                 <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/help_blue_gradient"
                     >
-                    <ImageView
-                        android:layout_width="47dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/question_mark"
-                        android:layout_marginBottom="7dp"
-                        />
-                    <TextView
-                        android:textAlignment="center"
-                        android:text="Help"
-                        android:textColor="#fff"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                    <LinearLayout
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="16dp"
+                        android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"/>
+                        >
+                        <ImageView
+                            android:layout_width="47dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/question_mark"
+                            android:layout_marginBottom="7dp"
+                            />
+                        <TextView
+                            android:textAlignment="center"
+                            android:text="Help"
+                            android:textColor="#fff"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"/>
+                    </LinearLayout>
+
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
             <!-- COLUMN 2  -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/objectDetection_card"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
@@ -84,6 +99,15 @@
                 app:cardCornerRadius="8dp"
                 app:cardBackgroundColor="@color/green_100"
                 >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/obj_green_gradient"
+                    >
+
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_margin="16dp"
@@ -111,6 +135,8 @@
             <!-- COLUMN 1  -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/distance_card"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
@@ -122,6 +148,15 @@
                 app:cardCornerRadius="8dp"
                 app:cardBackgroundColor="@color/orange_200"
                 >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/dist_yellow_gradient"
+                    >
+
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_margin="16dp"
@@ -149,6 +184,8 @@
             <!-- COLUMN 2  -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/obstacle_card"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
@@ -160,6 +197,15 @@
                 app:cardCornerRadius="8dp"
                 app:cardBackgroundColor="@color/red_100"
                 >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/notify_red_grad"
+                    >
+
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_margin="16dp"

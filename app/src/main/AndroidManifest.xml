@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.ObjectDetection">
-        <activity android:name=".Features"></activity>
+        <activity android:name=".Help"></activity>
+        <activity android:name=".Features" />
         <activity android:name=".DetectorActivity" />
         <activity android:name=".activity_notifyObstacle" />
         <activity
