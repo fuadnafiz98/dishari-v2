@@ -50,6 +50,7 @@ public class Contact<fis> extends AppCompatActivity {
             }
         }
     }
+
     FileInputStream fis = null;
 
 
@@ -64,6 +65,11 @@ public class Contact<fis> extends AppCompatActivity {
                 sb.append(ret_text).append(" ");
 
             }
+            String[] arrSplit = ret_text.split(" ");
+            mobile1.setText(arrSplit[0].toString());
+            mobile2.setText(arrSplit[1].toString());
+            mobile3.setText(arrSplit[2].toString());
+
             Log.v("check",ret_text);
 
 
@@ -82,6 +88,8 @@ public class Contact<fis> extends AppCompatActivity {
             }
     }
     }
+
+
 
 
 }
