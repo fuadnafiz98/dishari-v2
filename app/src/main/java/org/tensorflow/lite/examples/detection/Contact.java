@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -35,7 +36,11 @@ public class Contact<fis> extends AppCompatActivity {
         try {
             fos = openFileOutput(File_Name,MODE_PRIVATE);
             fos.write(text.getBytes());
-
+            mobile1.getText().clear();
+            mobile2.getText().clear();
+            mobile3.getText().clear();
+           
+            Toast.makeText(this,"sAVED TO"+ getFilesDir() + "/"+ File_Name,Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -49,6 +54,7 @@ public class Contact<fis> extends AppCompatActivity {
                 }
             }
         }
+
     }
     public void load(View v){
         FileInputStream fis = null;
@@ -62,7 +68,7 @@ public class Contact<fis> extends AppCompatActivity {
             StringBuilder sb = new StringBuilder();
             String ret_text;
             while ((ret_text = br.readLine()) != null) {
-                sb.append(ret_text).append(" ");
+                sb.append(ret_text).append("\n");
 
             }
             String[] arrSplit = ret_text.split(" ");
