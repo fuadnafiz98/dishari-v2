@@ -67,9 +67,16 @@ public class Contact<fis> extends AppCompatActivity {
                 sb.append(text1).append(" ");
             }
             String[] arr = sb.toString().split(" ");
-            mobile1.setText(arr[0]);
-            mobile2.setText(arr[1]);
-            mobile3.setText(arr[2]);
+            if (arr.length > 0){
+                mobile1.setText(arr[0]);
+            }
+            if (arr.length > 1){
+                mobile2.setText(arr[1]);
+            }
+            if (arr.length > 2){
+                mobile3.setText(arr[2]);
+            }
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

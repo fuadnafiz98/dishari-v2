@@ -106,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     arr = sb.toString().split(" ");
                     Log.v("number", arr[0]);
+                    Log.v("number", arr[1]);
+                    Log.v("number", arr[2]);
+
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
