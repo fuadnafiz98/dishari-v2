@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -26,7 +27,7 @@ import retrofit2.Response;
 public class Features extends AppCompatActivity implements View.OnClickListener {
 
     String TAG = "Location_API";
-    public CardView card_help, card_object, card_notify, card_distance;
+    public CardView card_help, card_object, card_notify, card_distance, card_obj_2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,72 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
         card_notify = (CardView) findViewById(R.id.obstacle_card);
         card_distance = (CardView) findViewById(R.id.distance_card);
 
+        card_obj_2 = (CardView) findViewById(R.id.objectDetection_card);
+
         card_help.setOnClickListener(this);
         card_object.setOnClickListener(this);
         card_notify.setOnClickListener(this);
         card_distance.setOnClickListener(this);
+
+
+        /*new tap option objection detection*/
+
+        final MediaPlayer newMediaPlayer2 = MediaPlayer.create(this, R.raw.object_detect_feat);
+        card_obj_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!newMediaPlayer2.isPlaying()){
+                    newMediaPlayer2.start();
+                    Intent intent = new Intent(getApplicationContext(), DetectorActivity.class);
+                    startActivity(intent);
+                    //playIcon2.setImageResource(R.drawable.pause);
+                }else{
+                    newMediaPlayer2.pause();
+                    //playIcon2.setImageResource(R.drawable.play_button);
+                }
+            }
+        });
+
+
+        /*new tap for distance measure */
+
+        final MediaPlayer newMediaPlayer3 = MediaPlayer.create(this, R.raw.dist_measure_feat);
+        card_distance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!newMediaPlayer3.isPlaying()){
+                    newMediaPlayer3.start();
+                    Intent intent = new Intent(getApplicationContext(), activity_distance_measurement.class);
+                    startActivity(intent);
+                    //playIcon2.setImageResource(R.drawable.pause);
+                }else{
+                    newMediaPlayer3.pause();
+                    //playIcon2.setImageResource(R.drawable.play_button);
+                }
+            }
+        });
+
+        /*new tap for notify obs */
+
+        final MediaPlayer newMediaPlayer = MediaPlayer.create(this, R.raw.not_obs_feat);
+        card_notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!newMediaPlayer.isPlaying()){
+                    newMediaPlayer.start();
+                    Intent intent = new Intent(getApplicationContext(), activity_notifyObstacle.class);
+                    startActivity(intent);
+                    //playIcon2.setImageResource(R.drawable.pause);
+                }else{
+                    newMediaPlayer.pause();
+                    //playIcon2.setImageResource(R.drawable.play_button);
+                }
+            }
+        });
+
+
     }
+    //final MediaPlayer newMediaPlayer2 = MediaPlayer.create(this, R.raw.object_detect_feat);
 
     @Override
     public void onClick(View v) {
@@ -66,16 +128,17 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.help_card:
                 startActivity(new Intent(getApplicationContext(), Help.class));
+                //newMediaPlayer2.start();
                 break;
-            case R.id.objectDetection_card:
-                startActivity(new Intent(getApplicationContext(), DetectorActivity.class));
-                break;
-            case R.id.obstacle_card:
-                startActivity(new Intent(getApplicationContext(), activity_notifyObstacle.class));
-                break;
-            case R.id.distance_card:
-                startActivity(new Intent(getApplicationContext(),activity_distance_measurement.class));
-                break;
+//            case R.id.objectDetection_card:
+//                startActivity(new Intent(getApplicationContext(), DetectorActivity.class));
+//                break;
+//            case R.id.obstacle_card:
+//                startActivity(new Intent(getApplicationContext(), activity_notifyObstacle.class));
+//                break;
+//            case R.id.distance_card:
+//                startActivity(new Intent(getApplicationContext(),activity_distance_measurement.class));
+//                break;
         }
     }
     @Override
