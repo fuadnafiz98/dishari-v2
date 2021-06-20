@@ -87,11 +87,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    {
+        File file = new File("/data/user/0/org.tensorflow.lite.examples.detection/files/contact.txt");
+        FileInputStream fis = new FileInputStream(file);
+        String[] arr;
+        if(file.exists())
+        {
 
-    File file = new File("/data/user/0/org.tensorflow.lite.examples.detection/files/contact.txt");
 
-    FileInputStream fis = new FileInputStream(file);
-    String[] arr;
+                try {
+
+                    InputStreamReader isr = new InputStreamReader(fis);
+                    BufferedReader br = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    String text1;
+                    while ((text1 = br.readLine()) != null) {
+                        sb.append(text1).append(" ");
+                    }
+                    arr = sb.toString().split(" ");
+                    Log.v("number", arr[0]);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (fis != null) {
+                        try {
+                            fis.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+
+        }
+        else{
+
+
+        }
+    }
+
+
 //    File notExist = new File("xyz.txt");
 
 //    {
@@ -103,34 +141,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    {
-        try {
-
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader br = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String text1;
-            while ((text1 = br.readLine()) != null) {
-                sb.append(text1).append(" ");
-            }
-            String[] arr = sb.toString().split(" ");
-            Log.v("number", arr[0]);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-}
+   }
 
 
 
