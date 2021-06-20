@@ -19,6 +19,7 @@
         <activity android:name=".Help"></activity>
         <activity android:name=".Features" />
         <activity android:name=".DetectorActivity" />
+        <activity android:name=".activity_notifyObstacle" />
         <activity
             android:name=".MainActivity"
             android:label="@string/tfe_od_app_name"

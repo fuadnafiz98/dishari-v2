@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00000000"
-    tools:context=".CameraActivity"
+    tools:context=".CameraActivity2"
     >
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,20 +40,7 @@
             android:paddingTop="15dp" >
 
             <TextView
-                android:id="@+id/speechText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:shadowColor="#000"
-                android:shadowDx="3"
-                android:shadowDy="3"
-                android:shadowRadius="6"
-                android:text="Speech Text"
-                android:textColor="#10B981"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/detectionText"
+                android:id="@+id/detectionTextObstacle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -63,21 +50,22 @@
                 android:shadowRadius="6"
                 android:text="Styling Android"
                 android:textColor="#FFF"
-                android:textSize="28sp"
+                android:textSize="36sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
-        <ImageView
-            android:id="@+id/btnSpeak"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <Button
+            android:id="@+id/bt_listen"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="60dp"
-            android:gravity="center"
-            android:onClick="getSpeechInput"
-            android:src="@drawable/ic_mic"/>
-
+            android:layout_marginStart="153dp"
+            android:layout_marginEnd="146dp"
+            android:layout_marginBottom="72dp"
+            android:text="Listen"
+            />
     </RelativeLayout>
 
     <include

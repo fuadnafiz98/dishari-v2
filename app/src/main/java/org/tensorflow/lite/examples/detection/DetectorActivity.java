@@ -1,21 +1,6 @@
-/*
- * Copyright 2019 The TensorFlow Authors. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.tensorflow.lite.examples.detection;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -26,13 +11,21 @@ import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Bundle;
 import android.os.SystemClock;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
 import org.tensorflow.lite.examples.detection.customview.OverlayView.DrawCallback;
 import org.tensorflow.lite.examples.detection.env.BorderedText;
@@ -46,7 +39,7 @@ import org.tensorflow.lite.examples.detection.tracking.MultiBoxTracker;
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
  * objects.
  */
-public class DetectorActivity extends CameraActivity implements OnImageAvailableListener {
+public class DetectorActivity extends CameraActivity implements OnImageAvailableListener, TextToSpeech.OnInitListener {
   private static final Logger LOGGER = new Logger();
 
   // Configuration values for the prepackaged SSD model.
@@ -81,6 +74,18 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private MultiBoxTracker tracker;
 
   private BorderedText borderedText;
+
+  private static final int TTS_ENGINE_REQUEST = 101;
+  private TextToSpeech tts;
+  private TextView detectionText;
+  private TextView speechText;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    detectionText = (TextView)findViewById(R.id.detectionText);
+    speechText = (TextView) findViewById(R.id.speechText);
+  }
 
   @Override
   public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -198,9 +203,18 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             final List<Detector.Recognition> mappedRecognitions =
                 new ArrayList<Detector.Recognition>();
 
+            double maxResultConfidence = -1;
+            String maxResultTitle = "";
             for (final Detector.Recognition result : results) {
               final RectF location = result.getLocation();
               if (location != null && result.getConfidence() >= minimumConfidence) {
+
+                Log.v("IMAGE", result.getTitle());
+                if(result.getConfidence() > maxResultConfidence) {
+                  maxResultConfidence = result.getConfidence();
+                  maxResultTitle = result.getTitle();
+                }
+
                 canvas.drawRect(location, paint);
 
                 cropToFrameTransform.mapRect(location);
@@ -209,6 +223,23 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 mappedRecognitions.add(result);
               }
             }
+            String finalMaxResultTitle = maxResultTitle;
+            runOnUiThread(
+                    () -> {
+                      detectionText.setText(finalMaxResultTitle);
+                      if(finalMaxResultTitle.equals(speechText.getText().toString().toLowerCase())) {
+                        Intent checkIntent = new Intent();
+                        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+                        startActivityForResult(checkIntent, TTS_ENGINE_REQUEST);
+                        try {
+                          //TODO: check this!
+                          Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                          e.printStackTrace();
+                        }
+                      }
+                    }
+            );
 
             tracker.trackResults(mappedRecognitions, currTimestamp);
             trackingOverlay.postInvalidate();
@@ -238,8 +269,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     return DESIRED_PREVIEW_SIZE;
   }
 
-  // Which detection model to use: by default uses Tensorflow Object Detection API frozen
-  // checkpoints.
   private enum DetectorMode {
     TF_OD_API;
   }
@@ -263,5 +292,65 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   @Override
   protected void setNumThreads(final int numThreads) {
     runInBackground(() -> detector.setNumThreads(numThreads));
+  }
+
+  @Override
+  public void onInit(int status) {
+    if(status == TextToSpeech.SUCCESS) {
+      int languageStatus = tts.setLanguage(Locale.US);
+      if(languageStatus == TextToSpeech.LANG_MISSING_DATA || languageStatus == TextToSpeech.LANG_NOT_SUPPORTED){
+//                Intent installIntent = new Intent();
+//                installIntent.setAction(
+//                        TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+//                startActivity(installIntent);
+        Toast.makeText(this,"Text to speech Dead", Toast.LENGTH_SHORT).show();
+      }
+      else {
+        Log.v("TTL","Done");
+        String data = detectionText.getText().toString();
+        int speechStatus = tts.speak(data, TextToSpeech.QUEUE_FLUSH, null);
+
+        if(speechStatus == TextToSpeech.ERROR){
+          Toast.makeText(this,"Text to speech Dead", Toast.LENGTH_SHORT).show();
+        }
+      }
+    } else {
+      Toast.makeText(this,"Text to speech Dead", Toast.LENGTH_SHORT).show();
+    }
+  }
+
+  public void getSpeechInput(View view) {
+    Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+    if (intent.resolveActivity(getPackageManager()) != null) {
+      startActivityForResult(intent, 10);
+    } else {
+      Toast.makeText(this, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
+    }
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == TTS_ENGINE_REQUEST && resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+    if (requestCode == TTS_ENGINE_REQUEST) {
+      tts = new TextToSpeech(this, this);
+    }
+//        else {
+//            Log.v("TTS", "nop");
+//            Intent installIntent = new Intent();
+//            installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+//            startActivity(installIntent);
+//        }
+    switch (requestCode) {
+      case 10:
+        if (resultCode == RESULT_OK && data != null) {
+          ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+          speechText.setText(result.get(0));
+        }
+        break;
+    }
   }
 }
