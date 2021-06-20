@@ -24,7 +24,7 @@ public class Help extends AppCompatActivity implements View.OnClickListener{
     public boolean playing = false;
 
     //MediaPlayer newMediaPlayer;
-    ImageView playIcon;
+    ImageView playIcon, playIcon2, playIcon3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,40 @@ playIcon.setOnClickListener(new View.OnClickListener() {
     }
 });
 
+//second one
 
+        final MediaPlayer newMediaPlayer2 = MediaPlayer.create(this, R.raw.demo_google);
+        playIcon2 = findViewById(R.id.dist_measure_media_play);
+        playIcon2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!newMediaPlayer2.isPlaying()){
+                    newMediaPlayer2.start();
+                    playIcon2.setImageResource(R.drawable.pause);
+                }else{
+                    newMediaPlayer2.pause();
+                    playIcon2.setImageResource(R.drawable.play_button);
+                }
+            }
+        });
+
+
+        //third one
+
+        final MediaPlayer newMediaPlayer3 = MediaPlayer.create(this, R.raw.demo_google);
+        playIcon3 = findViewById(R.id.notify_obs_media_play);
+        playIcon3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!newMediaPlayer2.isPlaying()){
+                    newMediaPlayer2.start();
+                    playIcon3.setImageResource(R.drawable.pause);
+                }else{
+                    newMediaPlayer2.pause();
+                    playIcon3.setImageResource(R.drawable.play_button);
+                }
+            }
+        });
 
         /*first tutorial*/
 //
@@ -67,20 +100,20 @@ playIcon.setOnClickListener(new View.OnClickListener() {
 //        });
 
         /*second tutorial*/
-        final MediaPlayer distMeasureMP = MediaPlayer.create(this,R.raw.demo_google);
-        FloatingActionButton playDistMeasure = (FloatingActionButton) this.findViewById(R.id.distMeasure);
-        playDistMeasure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(playing == false) {
-                    distMeasureMP.start();
-                    playing = true;
-                } else {
-                    distMeasureMP.stop();
-                    playing = false;
-                }
-            }
-        });
+//        final MediaPlayer distMeasureMP = MediaPlayer.create(this,R.raw.demo_google);
+//        FloatingActionButton playDistMeasure = (FloatingActionButton) this.findViewById(R.id.distMeasure);
+//        playDistMeasure.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(playing == false) {
+//                    distMeasureMP.start();
+//                    playing = true;
+//                } else {
+//                    distMeasureMP.stop();
+//                    playing = false;
+//                }
+//            }
+//        });
 
         /*third tutorial*/
 

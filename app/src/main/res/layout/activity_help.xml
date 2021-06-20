@@ -147,18 +147,17 @@
                         android:textStyle="bold"
                         android:layout_marginLeft="15dp"
                         />
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/distMeasure"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_media_play"
-                        tools:layout_editor_absoluteX="307dp"
-                        tools:layout_editor_absoluteY="493dp"
+                    <ImageView
+                        android:id="@+id/dist_measure_media_play"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/play_button"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="10dp"
-                        app:backgroundTint="#fff"
-                        />
+
+                        >
+
+                    </ImageView>
 
                 </LinearLayout>
 
@@ -210,19 +209,18 @@
                         android:textSize="27sp"
                         android:textStyle="bold"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="7dp"
                         />
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_media_play"
-                        tools:layout_editor_absoluteX="307dp"
-                        tools:layout_editor_absoluteY="493dp"
+                    <ImageView
+                        android:id="@+id/notify_obs_media_play"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/play_button"
                         android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
-                        app:backgroundTint="#fff"
-                        />
+
+                        >
+
+                    </ImageView>
 
                 </LinearLayout>
 
