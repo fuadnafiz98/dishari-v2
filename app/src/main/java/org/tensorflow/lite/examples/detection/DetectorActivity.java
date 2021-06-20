@@ -85,7 +85,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     super.onCreate(savedInstanceState);
     detectionText = (TextView)findViewById(R.id.detectionText);
     speechText = (TextView) findViewById(R.id.speechText);
-
   }
 
   @Override
