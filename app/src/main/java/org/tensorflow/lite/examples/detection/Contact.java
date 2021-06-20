@@ -16,10 +16,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Contact<fis> extends AppCompatActivity {
-    private static final String File_Name = "contact.txt";
-    EditText mobile1;
-    EditText mobile2;
-    EditText mobile3;
+    public static final String File_Name = "contact.txt";
+   public EditText mobile1;
+   public  EditText mobile2;
+   public EditText mobile3;
 
 
     @Override
@@ -36,11 +36,9 @@ public class Contact<fis> extends AppCompatActivity {
         try {
             fos = openFileOutput(File_Name,MODE_PRIVATE);
             fos.write(text.getBytes());
-            mobile1.getText().clear();
-            mobile2.getText().clear();
-            mobile3.getText().clear();
-           
-            Toast.makeText(this,"sAVED TO"+ getFilesDir() + "/"+ File_Name,Toast.LENGTH_LONG).show();
+
+
+            Log.v("file","sAVED TO"+ getFilesDir() + "/"+ File_Name );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -56,48 +54,37 @@ public class Contact<fis> extends AppCompatActivity {
         }
 
     }
+
     public void load(View v){
         FileInputStream fis = null;
-
-
-
-        try {
+        try{
             fis = openFileInput(File_Name);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();
-            String ret_text;
-            while ((ret_text = br.readLine()) != null) {
-                sb.append(ret_text).append("\n");
-
+            String text1;
+            while ((text1 = br.readLine()) != null){
+                sb.append(text1).append(" ");
             }
-            String[] arrSplit = ret_text.split(" ");
-            mobile1.setText(arrSplit[0].toString());
-            mobile2.setText(arrSplit[1].toString());
-            mobile3.setText(arrSplit[2].toString());
-
-            Log.v("check",ret_text);
-
+            String[] arr = sb.toString().split(" ");
+            mobile1.setText(arr[0]);
+            mobile2.setText(arr[1]);
+            mobile3.setText(arr[2]);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-
-        }finally{
+        }finally {
             if(fis != null){
-                try {
+                try{
                     fis.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-
     }
-
-
-
 
 
 
