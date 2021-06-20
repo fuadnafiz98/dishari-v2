@@ -50,11 +50,11 @@ public class Contact<fis> extends AppCompatActivity {
             }
         }
     }
+    public void load(View v){
+        FileInputStream fis = null;
 
-    FileInputStream fis = null;
 
 
-    {
         try {
             fis = openFileInput(File_Name);
             InputStreamReader isr = new InputStreamReader(fis);
@@ -86,8 +86,11 @@ public class Contact<fis> extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        }
+
     }
-    }
+
+
 
 
 
