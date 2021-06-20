@@ -21,6 +21,8 @@ import org.tensorflow.lite.examples.detection.Features;
 
 public class Help extends AppCompatActivity implements View.OnClickListener{
     private CardView notifyObsCard;
+    private CardView contact;
+
     public boolean playing = false;
 
     //MediaPlayer newMediaPlayer;
@@ -79,6 +81,15 @@ playIcon.setOnClickListener(new View.OnClickListener() {
                     newMediaPlayer2.pause();
                     playIcon3.setImageResource(R.drawable.play_button);
                 }
+            }
+        });
+
+        //forth one
+        contact = (CardView) findViewById(R.id.contact);
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Contact.class));
             }
         });
 
