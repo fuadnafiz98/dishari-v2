@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
 import org.tensorflow.lite.examples.detection.customview.OverlayView.DrawCallback;
@@ -251,12 +252,24 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
                             }
                         }
                         String finalMaxResultTitle = maxResultTitle;
+                        boolean finalSpeak = false;
                         runOnUiThread(
                                 () -> {
                                     detectionText.setText(finalMaxResultTitle);
                                     for(int i = 0; i < objects.length; i++) {
                                         if(finalMaxResultTitle.equals(objects[i])) {
-                                            speak(objects[i] + " in your way!");
+                                            if(!tts.isSpeaking()) {
+                                                speak(objects[i] + " in            your             way!");
+
+                                                finalMaxResultTitle.replace(objects[i], "");
+                                            }
+//                                            try {
+//                                                finalMaxResultTitle.replace(objects[i], "");
+//                                                Thread.sleep(2000);
+//                                                tts.stop();
+//                                            } catch (InterruptedException e) {
+//                                                e.printStackTrace();
+//                                            }
                                         }
                                     }
                                 }
@@ -354,12 +367,6 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
     }
     private void speak(String distance) {
         tts.speak(distance, TextToSpeech.QUEUE_FLUSH, null);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
     }
     @Override
     public void onDestroy() {
