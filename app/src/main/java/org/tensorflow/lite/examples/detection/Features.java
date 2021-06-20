@@ -65,7 +65,7 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
         Intent i;
         switch (v.getId()) {
             case R.id.help_card:
-//                startActivity(new Intent(getApplicationContext(), Help.class));
+                startActivity(new Intent(getApplicationContext(), Help.class));
                 break;
             case R.id.objectDetection_card:
                 startActivity(new Intent(getApplicationContext(), DetectorActivity.class));
