@@ -1,5 +1,6 @@
 package org.tensorflow.lite.examples.detection;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -10,13 +11,21 @@ import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Bundle;
 import android.os.SystemClock;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
 import org.tensorflow.lite.examples.detection.customview.OverlayView.DrawCallback;
 import org.tensorflow.lite.examples.detection.env.BorderedText;
@@ -26,11 +35,7 @@ import org.tensorflow.lite.examples.detection.tflite.Detector;
 import org.tensorflow.lite.examples.detection.tflite.TFLiteObjectDetectionAPIModel;
 import org.tensorflow.lite.examples.detection.tracking.MultiBoxTracker;
 
-/**
- * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
- * objects.
- */
-public class activity_notifyObstacle extends CameraActivity2 implements OnImageAvailableListener {
+public class activity_notifyObstacle extends CameraActivity2 implements OnImageAvailableListener, TextToSpeech.OnInitListener {
     private static final Logger LOGGER = new Logger();
 
     // Configuration values for the prepackaged SSD model.
@@ -65,6 +70,24 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
     private MultiBoxTracker tracker;
 
     private BorderedText borderedText;
+
+    TextView detectionText;
+    private static final int TTS_ENGINE_REQUEST = 101;
+    private TextToSpeech tts;
+    private TextView TextForSpeech;
+    private Button button;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        detectionText = (TextView)findViewById(R.id.detectionTextObstacle);
+        button = (Button)findViewById(R.id.bt_listen);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                performObstacle(v);
+            }
+        });
+    }
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -182,9 +205,15 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
                         final List<Detector.Recognition> mappedRecognitions =
                                 new ArrayList<Detector.Recognition>();
 
+                        double maxResultConfidence = -1;
+                        String maxResultTitle = "";
                         for (final Detector.Recognition result : results) {
                             final RectF location = result.getLocation();
-                            if (location != null && result.getConfidence() >= minimumConfidence) {
+                            if (location != null && result.getConfidence() >= minimumConfidence) {Log.v("IMAGE", result.getTitle());
+                                if(result.getConfidence() > maxResultConfidence) {
+                                    maxResultConfidence = result.getConfidence();
+                                    maxResultTitle = result.getTitle();
+                                }
                                 canvas.drawRect(location, paint);
 
                                 cropToFrameTransform.mapRect(location);
@@ -193,6 +222,12 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
                                 mappedRecognitions.add(result);
                             }
                         }
+                        String finalMaxResultTitle = maxResultTitle;
+                        runOnUiThread(
+                                () -> {
+                                    detectionText.setText(finalMaxResultTitle);
+                                }
+                        );
 
                         tracker.trackResults(mappedRecognitions, currTimestamp);
                         trackingOverlay.postInvalidate();
@@ -222,8 +257,6 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
         return DESIRED_PREVIEW_SIZE;
     }
 
-    // Which detection model to use: by default uses Tensorflow Object Detection API frozen
-    // checkpoints.
     private enum DetectorMode {
         TF_OD_API;
     }
@@ -248,9 +281,42 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
     protected void setNumThreads(final int numThreads) {
         runInBackground(() -> detector.setNumThreads(numThreads));
     }
+
+    public void performObstacle(android.view.View view) {
+        Log.v("FUAD", "OKOK");
+        Intent checkIntent = new Intent();
+        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkIntent, TTS_ENGINE_REQUEST);
+    }
+    @Override
+    public void onInit(int status) {
+        if(status == TextToSpeech.SUCCESS ){
+            int languageStatus = tts.setLanguage(Locale.US);
+            if(languageStatus == TextToSpeech.LANG_MISSING_DATA || languageStatus == TextToSpeech.LANG_NOT_SUPPORTED){
+                Toast.makeText(this,"Text to speech Dead", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Log.v("TTL","Done");
+                String data = detectionText.getText().toString();
+                data = data + " in your way";
+                int speechStatus = tts.speak(data, TextToSpeech.QUEUE_FLUSH, null);
+                if(speechStatus == TextToSpeech.ERROR){
+                    Toast.makeText(this,"Text to speech Dead", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else{
+            Toast.makeText(this,"Text to speech Dead", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == TTS_ENGINE_REQUEST && resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+            tts = new TextToSpeech(this, this);
+        } else {
+            Intent installIntent = new Intent();
+            installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+            startActivity(installIntent);
+        }
+    }
 }
-
-
-
-
-//
