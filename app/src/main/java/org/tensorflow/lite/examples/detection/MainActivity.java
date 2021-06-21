@@ -88,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     {
-        File file = new File("/data/user/0/org.tensorflow.lite.examples.detection/files/contact.txt");
+       // File file = new File("/data/user/0/org.tensorflow.lite.examples.detection/files/contact.txt");
+    File file = new File("/data/user/0/org.tensorflow.lite.examples.detection/files/contact.txt");
         FileInputStream fis = new FileInputStream(file);
         String[] arr;
         if(file.exists())
@@ -133,16 +134,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    File notExist = new File("xyz.txt");
-
-//    {
-//        try {
-//            Log.v("row", file.getCanonicalPath() + " exists? " + file.exists());
-//            Log.v("row1", notExist.getCanonicalPath() + " exists? " + notExist.exists());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
    }
 

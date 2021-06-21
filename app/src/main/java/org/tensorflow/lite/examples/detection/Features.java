@@ -154,7 +154,7 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
             }
             Toast.makeText(
                     this,
-                    "Volume up key pressed",
+                    "Message sent successfully",
                     Toast.LENGTH_LONG).show();
         }
         return super.onKeyDown(keyCode,event);
