@@ -94,43 +94,33 @@ public class MainActivity extends AppCompatActivity {
         String[] arr;
         if(file.exists())
         {
-
-
-                try {
-
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader br = new BufferedReader(isr);
-                    StringBuilder sb = new StringBuilder();
-                    String text1;
-                    while ((text1 = br.readLine()) != null) {
-                        sb.append(text1).append(" ");
-                    }
-                    arr = sb.toString().split(" ");
-                    Log.v("number", arr[0]);
-                    Log.v("number", arr[1]);
-                    Log.v("number", arr[2]);
-
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (fis != null) {
-                        try {
-                            fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+            try {
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr);
+                StringBuilder sb = new StringBuilder();
+                String text1;
+                while ((text1 = br.readLine()) != null) {
+                    sb.append(text1).append(" ");
+                }
+                arr = sb.toString().split(" ");
+                Log.v("number", arr[0]);
+                Log.v("number", arr[1]);
+                Log.v("number", arr[2]);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
-
-
+            }
         }
-        else{
-
-
-        }
+        else{ }
     }
 
 
