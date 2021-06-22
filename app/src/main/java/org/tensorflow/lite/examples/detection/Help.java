@@ -19,8 +19,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.tensorflow.lite.examples.detection.Features;
 
-public class Help extends AppCompatActivity implements View.OnClickListener{
+public class Help extends AppCompatActivity{
     private CardView notifyObsCard;
+    private CardView contact;
+
     public boolean playing = false;
 
     //MediaPlayer newMediaPlayer;
@@ -82,6 +84,15 @@ playIcon.setOnClickListener(new View.OnClickListener() {
             }
         });
 
+        //forth one
+        contact = (CardView) findViewById(R.id.contact);
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Contact.class));
+            }
+        });
+
         /*first tutorial*/
 //
 //        final MediaPlayer objDetectMP = MediaPlayer.create(this, R.raw.demo_google);
@@ -117,8 +128,8 @@ playIcon.setOnClickListener(new View.OnClickListener() {
 
         /*third tutorial*/
 
-        notifyObsCard = (CardView) findViewById(R.id.notObsCard);
-        notifyObsCard.setOnClickListener(this);
+//        notifyObsCard = (CardView) findViewById(R.id.notObsCard);
+//        notifyObsCard.setOnClickListener(this);
 
         /*third tutorial ends*/
 
@@ -141,13 +152,13 @@ playIcon.setOnClickListener(new View.OnClickListener() {
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        final MediaPlayer distMeasureMP = MediaPlayer.create(this,R.raw.demo_google);
-        switch (v.getId()){
-            case R.id.notObsCard :  distMeasureMP.start(); break;
-            default:break;
-        }
-
-    }
+//    @Override
+//    public void onClick(View v) {
+//        final MediaPlayer distMeasureMP = MediaPlayer.create(this,R.raw.demo_google);
+//        switch (v.getId()){
+//            case R.id.notObsCard :  distMeasureMP.start(); break;
+//            default:break;
+//        }
+//
+//    }
 }

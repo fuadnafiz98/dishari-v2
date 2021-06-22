@@ -21,6 +21,8 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme.ObjectDetection">
+        <activity android:name=".Contact"></activity>
+        <activity android:name=".Help" />
         <activity android:name=".activity_distance_measurement"/>
         <activity android:name=".Help"></activity>
         <activity android:name=".Features" />
