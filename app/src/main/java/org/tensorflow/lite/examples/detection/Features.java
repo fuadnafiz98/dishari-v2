@@ -173,8 +173,8 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
     public void sendSMS() throws FileNotFoundException {
         String phoneNo = "01537124724";
         String phoneNo1 = "01738319627";
-        String phoneNo2;
-        String phoneNo3;
+        String phoneNo2 = "01747474730";
+        String phoneNo3 = "01537124724";
 //        String phoneNo = "01769550066";
 //            String phoneNo = "01678054074";
 //         call API here...
@@ -219,7 +219,9 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
         Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
         Call<LocationModel> call = methods.getLocation();
 
-        String finalPhoneNo = phoneNo1;
+        String finalPhoneNo1 = phoneNo1;
+        String finalPhoneNo2 = phoneNo2;
+        String finalPhoneNo3 = phoneNo3;
         call.enqueue(new Callback<LocationModel>() {
             @Override
             public void onResponse(Call<LocationModel> call, Response<LocationModel> response) {
@@ -231,7 +233,9 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
                 Log.e(TAG, SMS);
                 try {
                     SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(finalPhoneNo,null,SMS,null,null);
+                    smsManager.sendTextMessage(finalPhoneNo1,null,SMS,null,null);
+                    smsManager.sendTextMessage(finalPhoneNo2,null,SMS,null,null);
+                    smsManager.sendTextMessage(finalPhoneNo3,null,SMS,null,null);
                     //Toast.makeText(this,"success",Toast.LENGTH_LONG).show();
                     Log.e(TAG, "message sent");
                 } catch (Exception e){

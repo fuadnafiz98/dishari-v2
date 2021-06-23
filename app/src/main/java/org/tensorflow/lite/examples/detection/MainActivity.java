@@ -86,11 +86,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+
+
     {
        // File file = new File("/data/user/0/org.tensorflow.lite.examples.detection/files/contact.txt");
-    File file = new File("/data/user/0/org.tensorflow.lite.examples.detection/files/contact.txt");
-        FileInputStream fis = new FileInputStream(file);
+    File file = new File("data/user/0/org.tensorflow.lite.examples.detection/files/contact.txt");
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         String[] arr;
         if(file.exists())
         {
@@ -121,11 +127,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else{ }
+
+
     }
 
-
-
-   }
+    }
+}
 
 
 

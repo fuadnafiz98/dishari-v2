@@ -86,7 +86,13 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
             "car",
             "couch",
             "bench",
-            "table"
+            "table",
+            "bicycle",
+            "motorcycle",
+            "fire hydrant",
+            "parking meter",
+            "dining table",
+            "refrigerator"
     };
 
     @Override
@@ -235,6 +241,7 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
 
                         double maxResultConfidence = -1;
                         String maxResultTitle = "";
+                        RectF maxLocation = null;
                         for (final Detector.Recognition result : results) {
                             final RectF location = result.getLocation();
                             if (location != null && result.getConfidence() >= minimumConfidence) {
@@ -242,7 +249,9 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
                                 if(result.getConfidence() > maxResultConfidence) {
                                     maxResultConfidence = result.getConfidence();
                                     maxResultTitle = result.getTitle();
+                                    maxLocation = result.getLocation();
                                 }
+
 //                                canvas.drawRect(location, paint);
 
                                 cropToFrameTransform.mapRect(location);
@@ -252,16 +261,22 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
                             }
                         }
                         String finalMaxResultTitle = maxResultTitle;
+                        RectF finalMaxLocation = maxLocation;
                         boolean finalSpeak = false;
                         runOnUiThread(
                                 () -> {
                                     detectionText.setText(finalMaxResultTitle);
                                     for(int i = 0; i < objects.length; i++) {
                                         if(finalMaxResultTitle.equals(objects[i])) {
-                                            if(!tts.isSpeaking()) {
-                                                speak(objects[i] + " in            your             way!");
-
-                                                finalMaxResultTitle.replace(objects[i], "");
+                                            if((finalMaxLocation.left <= 10 && finalMaxLocation.right <= 110) ||
+                                                    (finalMaxLocation.left >= 180 && finalMaxLocation.right >= 280)) {
+                                                continue;
+                                            } else {
+                                                Log.v("OBJECT_LOCATION", finalMaxLocation.toString());
+                                                if (!tts.isSpeaking()) {
+                                                    speak(objects[i] + " in          .          your          .          .          way");
+                                                    finalMaxResultTitle.replace(objects[i], "");
+                                                }
                                             }
 //                                            try {
 //                                                finalMaxResultTitle.replace(objects[i], "");
