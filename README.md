@@ -1,7 +1,7 @@
-<div style="text-align:center">
+<div style="text-align:center;background:white">
   <img src="_assets/diahri_black_1.png" />
 </div>
-<h1 align="center">Dishari</h1>
+<h1 align="center"><strong>Dishari</strong></h1>
 <h2 align="center">
 To seek the humanity
 </h2>
