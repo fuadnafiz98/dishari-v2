@@ -215,12 +215,12 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                   maxResultTitle = result.getTitle();
                 }
 
-                canvas.drawRect(location, paint);
+//                canvas.drawRect(location, paint);
 
                 cropToFrameTransform.mapRect(location);
 
                 result.setLocation(location);
-                mappedRecognitions.add(result);
+//                mappedRecognitions.add(result);
               }
             }
             String finalMaxResultTitle = maxResultTitle;

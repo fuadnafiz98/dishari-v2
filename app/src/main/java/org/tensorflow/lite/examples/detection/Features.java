@@ -20,6 +20,13 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -147,26 +154,74 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED){
-                    sendSMS();
+                    try {
+                        sendSMS();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }else{
                     requestPermissions(new String[]{Manifest.permission.SEND_SMS},1);
                 }
             }
             Toast.makeText(
                     this,
-                    "Volume up key pressed",
+                    "Message sent successfully",
                     Toast.LENGTH_LONG).show();
         }
         return super.onKeyDown(keyCode,event);
     }
-    public void sendSMS(){
+    public void sendSMS() throws FileNotFoundException {
         String phoneNo = "01537124724";
+        String phoneNo1 = "01738319627";
+        String phoneNo2 = "01747474730";
+        String phoneNo3 = "01537124724";
 //        String phoneNo = "01769550066";
 //            String phoneNo = "01678054074";
 //         call API here...
+
+        File file = new File("/data/user/0/org.tensorflow.lite.examples.detection/files/contact.txt");
+        FileInputStream fis = new FileInputStream(file);
+        String[] arr;
+        if(file.exists())
+        {
+            try {
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr);
+                StringBuilder sb = new StringBuilder();
+                String text1;
+                while ((text1 = br.readLine()) != null) {
+                    sb.append(text1).append(" ");
+                }
+                arr = sb.toString().split(" ");
+                phoneNo1 = arr[0];
+                phoneNo2 = arr[1];
+                phoneNo3 = arr[2];
+                Log.v("number", arr[0]);
+                Log.v("number", arr[1]);
+                Log.v("number", arr[2]);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        else{ }
+
+
         Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
         Call<LocationModel> call = methods.getLocation();
 
+        String finalPhoneNo1 = phoneNo1;
+        String finalPhoneNo2 = phoneNo2;
+        String finalPhoneNo3 = phoneNo3;
         call.enqueue(new Callback<LocationModel>() {
             @Override
             public void onResponse(Call<LocationModel> call, Response<LocationModel> response) {
@@ -178,7 +233,9 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
                 Log.e(TAG, SMS);
                 try {
                     SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(phoneNo,null,SMS,null,null);
+                    smsManager.sendTextMessage(finalPhoneNo1,null,SMS,null,null);
+                    smsManager.sendTextMessage(finalPhoneNo2,null,SMS,null,null);
+                    smsManager.sendTextMessage(finalPhoneNo3,null,SMS,null,null);
                     //Toast.makeText(this,"success",Toast.LENGTH_LONG).show();
                     Log.e(TAG, "message sent");
                 } catch (Exception e){

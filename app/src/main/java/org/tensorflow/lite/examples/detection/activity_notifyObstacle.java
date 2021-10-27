@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
 import org.tensorflow.lite.examples.detection.customview.OverlayView.DrawCallback;
@@ -77,6 +78,23 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
     private TextView TextForSpeech;
     private Button button;
 
+    String[] objects = {
+            "chair",
+            "table",
+            "person",
+            "suitcase",
+            "car",
+            "couch",
+            "bench",
+            "table",
+            "bicycle",
+            "motorcycle",
+            "fire hydrant",
+            "parking meter",
+            "dining table",
+            "refrigerator"
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +103,22 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 performObstacle(v);
+            }
+        });
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status == TextToSpeech.SUCCESS) {
+                    int result = tts.setLanguage(Locale.US);
+                    if(result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS_DISTANCE", "Lang not supported");
+                    } else {
+
+                    }
+                } else {
+                    Log.e("TTS_DISTANCE", "Lang not supported");
+                }
             }
         });
     }
@@ -207,25 +241,52 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
 
                         double maxResultConfidence = -1;
                         String maxResultTitle = "";
+                        RectF maxLocation = null;
                         for (final Detector.Recognition result : results) {
                             final RectF location = result.getLocation();
-                            if (location != null && result.getConfidence() >= minimumConfidence) {Log.v("IMAGE", result.getTitle());
+                            if (location != null && result.getConfidence() >= minimumConfidence) {
+                                Log.v("IMAGE", result.getTitle());
                                 if(result.getConfidence() > maxResultConfidence) {
                                     maxResultConfidence = result.getConfidence();
                                     maxResultTitle = result.getTitle();
+                                    maxLocation = result.getLocation();
                                 }
-                                canvas.drawRect(location, paint);
+
+//                                canvas.drawRect(location, paint);
 
                                 cropToFrameTransform.mapRect(location);
 
                                 result.setLocation(location);
-                                mappedRecognitions.add(result);
+//                                mappedRecognitions.add(result);
                             }
                         }
                         String finalMaxResultTitle = maxResultTitle;
+                        RectF finalMaxLocation = maxLocation;
+                        boolean finalSpeak = false;
                         runOnUiThread(
                                 () -> {
                                     detectionText.setText(finalMaxResultTitle);
+                                    for(int i = 0; i < objects.length; i++) {
+                                        if(finalMaxResultTitle.equals(objects[i])) {
+                                            if((finalMaxLocation.left <= 10 && finalMaxLocation.right <= 110) ||
+                                                    (finalMaxLocation.left >= 180 && finalMaxLocation.right >= 280)) {
+                                                continue;
+                                            } else {
+                                                Log.v("OBJECT_LOCATION", finalMaxLocation.toString());
+                                                if (!tts.isSpeaking()) {
+                                                    speak(objects[i] + " in          .          your          .          .          way");
+                                                    finalMaxResultTitle.replace(objects[i], "");
+                                                }
+                                            }
+//                                            try {
+//                                                finalMaxResultTitle.replace(objects[i], "");
+//                                                Thread.sleep(2000);
+//                                                tts.stop();
+//                                            } catch (InterruptedException e) {
+//                                                e.printStackTrace();
+//                                            }
+                                        }
+                                    }
                                 }
                         );
 
@@ -318,5 +379,16 @@ public class activity_notifyObstacle extends CameraActivity2 implements OnImageA
             installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
             startActivity(installIntent);
         }
+    }
+    private void speak(String distance) {
+        tts.speak(distance, TextToSpeech.QUEUE_FLUSH, null);
+    }
+    @Override
+    public void onDestroy() {
+        if(tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 }
