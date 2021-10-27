@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendSMS() {
         String phoneNo = "01769550066";
-        String SMS = "Chacha Apon pran Bacha";
+        String SMS = "I need help";
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNo, null, SMS, null, null);
