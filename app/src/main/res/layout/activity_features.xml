@@ -34,7 +34,7 @@
             <!-- ROW 1  -->
             <!-- COLUMN 1  -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/help_card"
+                android:id="@+id/money_card"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:layout_width="0dp"
@@ -71,7 +71,7 @@
                             />
                         <TextView
                             android:textAlignment="center"
-                            android:text="Help"
+                            android:text="Money Note Detection"
                             android:textColor="#fff"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -134,7 +134,7 @@
             <!-- ROW 2  -->
             <!-- COLUMN 1  -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/distance_card"
+                android:id="@+id/bookReading_card"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:layout_width="0dp"
@@ -172,7 +172,7 @@
                         />
                     <TextView
                         android:textAlignment="center"
-                        android:text="Distance Measurement"
+                        android:text="Book Reading"
                         android:textColor="#fff"
                         android:textSize="20sp"
                         android:textStyle="bold"

@@ -47,6 +47,7 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.help:
+
                         startActivity(new Intent(getApplicationContext(), Help.class));
                         overridePendingTransition(0, 0);
                         return true;
@@ -57,10 +58,10 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
             }
         });
 
-        card_help = (CardView) findViewById(R.id.help_card);
+        card_help = (CardView) findViewById(R.id.money_card);
         card_object = (CardView) findViewById(R.id.objectDetection_card);
         card_notify = (CardView) findViewById(R.id.obstacle_card);
-        card_distance = (CardView) findViewById(R.id.distance_card);
+        card_distance = (CardView) findViewById(R.id.bookReading_card);
 
         card_obj_2 = (CardView) findViewById(R.id.objectDetection_card);
 
@@ -70,6 +71,31 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
         card_distance.setOnClickListener(this);
 
 
+
+//        card_help.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), MoneyNoteDetection.class);
+//                startActivity(intent);
+//            }
+//        }
+//        );
+
+        final MediaPlayer newMediaPlayer3n = MediaPlayer.create(this, R.raw.money_note_detection);
+        card_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!newMediaPlayer3n.isPlaying()){
+                    newMediaPlayer3n.start();
+                    Intent intent = new Intent(getApplicationContext(), MoneyNoteDetection.class);
+                    startActivity(intent);
+                    //playIcon2.setImageResource(R.drawable.pause);
+                }else{
+                    newMediaPlayer3n.pause();
+                    //playIcon2.setImageResource(R.drawable.play_button);
+                }
+            }
+        });
         /*new tap option objection detection*/
 
         final MediaPlayer newMediaPlayer2 = MediaPlayer.create(this, R.raw.object_detect_feat);
@@ -91,13 +117,13 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
 
         /*new tap for distance measure */
 
-        final MediaPlayer newMediaPlayer3 = MediaPlayer.create(this, R.raw.dist_measure_feat);
+        final MediaPlayer newMediaPlayer3 = MediaPlayer.create(this, R.raw.book_reading_selected);
         card_distance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!newMediaPlayer3.isPlaying()){
                     newMediaPlayer3.start();
-                    Intent intent = new Intent(getApplicationContext(), activity_distance_measurement.class);
+                    Intent intent = new Intent(getApplicationContext(), BookReading.class);
                     startActivity(intent);
                     //playIcon2.setImageResource(R.drawable.pause);
                 }else{
@@ -128,26 +154,35 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
 
     }
     //final MediaPlayer newMediaPlayer2 = MediaPlayer.create(this, R.raw.object_detect_feat);
+//    card_help.setOnClickListener(new View.OnClickListener()
+//
+//    {
+//        @Override
+//        public void onClick (View v){
+//        Intent intent = new Intent(getApplicationContext(), activity_notifyObstacle.class);
+//        startActivity(intent);
+//    }
+//    }
 
-    @Override
-    public void onClick(View v) {
-        Intent i;
-        switch (v.getId()) {
-            case R.id.help_card:
-                startActivity(new Intent(getApplicationContext(), Help.class));
-                //newMediaPlayer2.start();
-                break;
-//            case R.id.objectDetection_card:
-//                startActivity(new Intent(getApplicationContext(), DetectorActivity.class));
+//    @Override
+//    public void onClick(View v) {
+//        Intent i;
+//        switch (v.getId()) {
+//            case R.id.help_card:
+//                startActivity(new Intent(getApplicationContext(), MoneyNoteDetection.class));
+//                //newMediaPlayer2.start();
 //                break;
-//            case R.id.obstacle_card:
-//                startActivity(new Intent(getApplicationContext(), activity_notifyObstacle.class));
-//                break;
-//            case R.id.distance_card:
-//                startActivity(new Intent(getApplicationContext(),activity_distance_measurement.class));
-//                break;
-        }
-    }
+////            case R.id.objectDetection_card:
+////                startActivity(new Intent(getApplicationContext(), DetectorActivity.class));
+////                break;
+////            case R.id.obstacle_card:
+////                startActivity(new Intent(getApplicationContext(), activity_notifyObstacle.class));
+////                break;
+////            case R.id.distance_card:
+////                startActivity(new Intent(getApplicationContext(),activity_distance_measurement.class));
+////                break;
+//        }
+//    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
@@ -250,4 +285,8 @@ public class Features extends AppCompatActivity implements View.OnClickListener 
         });
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

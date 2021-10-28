@@ -141,7 +141,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Distance Measurement"
+                        android:text="Book Reading and Money Notes"
                         android:textColor="#fff"
                         android:textSize="27sp"
                         android:textStyle="bold"
