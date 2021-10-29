@@ -42,8 +42,8 @@ public class MoneyNoteDetection extends CameraActivity2 implements OnImageAvaila
     // Configuration values for the prepackaged SSD model.
     private static final int TF_OD_API_INPUT_SIZE = 300;
     private static final boolean TF_OD_API_IS_QUANTIZED = true;
-    private static final String TF_OD_API_MODEL_FILE = "model.tflite";
-    private static final String TF_OD_API_LABELS_FILE = "labels.txt";
+    private static final String TF_OD_API_MODEL_FILE = "detect.tflite";
+    private static final String TF_OD_API_LABELS_FILE = "labelmap.txt";
     private static final DetectorMode MODE = DetectorMode.TF_OD_API;
     // Minimum detection confidence to track a detection.
     private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
@@ -72,7 +72,7 @@ public class MoneyNoteDetection extends CameraActivity2 implements OnImageAvaila
 
     private BorderedText borderedText;
 
-    TextView detectionText;
+    String detectionText;
     private static final int TTS_ENGINE_REQUEST = 101;
     private TextToSpeech tts;
     private TextView TextForSpeech;
@@ -98,7 +98,7 @@ public class MoneyNoteDetection extends CameraActivity2 implements OnImageAvaila
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        detectionText = (TextView)findViewById(R.id.detectionTextObstacle);
+        detectionText = "Money";
         button = (Button)findViewById(R.id.bt_listen);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -265,12 +265,12 @@ public class MoneyNoteDetection extends CameraActivity2 implements OnImageAvaila
                         boolean finalSpeak = false;
                         runOnUiThread(
                                 () -> {
-                                    detectionText.setText(finalMaxResultTitle);
-                                    if(finalMaxResultTitle.length() > 0){
+                                    //detectionText.setText("Money Detected");
+                                    //if(finalMaxResultTitle.length() > 0){
                                         if(!tts.isSpeaking()){
-                                            speak(finalMaxResultTitle + " taka is what you seek");
+                                            speak( " " + " ");
                                         }
-                                    }
+                                   // }
 
 //                                    for(int i = 0; i < objects.length; i++) {
 //                                        if(finalMaxResultTitle.equals(objects[i])) {
@@ -364,7 +364,7 @@ public class MoneyNoteDetection extends CameraActivity2 implements OnImageAvaila
             }
             else{
                 Log.v("TTL","Done");
-                String data = detectionText.getText().toString();
+                String data = detectionText.toString();
                 data = data + " in your way";
                 int speechStatus = tts.speak(data, TextToSpeech.QUEUE_FLUSH, null);
                 if(speechStatus == TextToSpeech.ERROR){
